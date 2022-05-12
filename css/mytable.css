@@ -1,0 +1,87 @@
+
+
+table{
+  font-family:'Nunito',sans-serif;
+  border-collapse: collapse;
+}
+
+
+th{
+  background-color: #333;
+  color: #fff;
+}
+
+
+
+
+tbody{
+  background-color: #eee;
+  color: #555;
+}
+
+
+@media screen and (max-width: 600px){
+  thead{
+    display: none;
+  }
+
+  td{
+    display: block;
+  }
+
+  td:first-child{
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+  }
+  
+  td:nth-child(2)::before{
+    content: "Full Name";
+  }
+
+  td:nth-child(3)::before{
+    content: "Email";
+  }
+
+  td:nth-child(4)::before{
+    content: "Date Issued";
+  }
+
+  td:nth-child(5)::before{
+    content: "Due Date";
+  }
+  
+td:nth-child(6)::before{
+    content: "Monthly Bill";
+  }
+  
+td:nth-child(7)::before{
+    content: "Other Fees";
+  }
+  
+td:nth-child(8)::before{
+    content: "Charges";
+  }
+  
+td:nth-child(9)::before{
+    content: "Total";
+  }
+  
+td:nth-child(10)::before{
+    content: "Payment";
+  }
+  
+td:nth-child(11)::before{
+    content: "Status";
+  }
+
+  td{
+    text-align: right;
+  }
+
+  td::before{
+    float: left;
+    margin-right: 3rem;
+    font-weight: bold;
+  }
+}

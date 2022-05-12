@@ -1,0 +1,58 @@
+<?php
+
+if(isset($_POST['userreg']))
+{
+	$firstname = $_POST['firstname'];
+	$middleName = $_POST['middleName'];
+	$lastName = $_POST['lastName'];
+	$email = $_POST['email'];
+	$pw = $_POST['pw'];
+	$addr = $_POST['addr'];
+	$municipality = $_POST['municipality'];
+	$province = $_POST['province'];
+	$number = $_POST['number'];
+	$dropdown = $_POST['dropdown'];
+	$bill = $_POST['bill'];
+	$status = $_POST['status'];
+	$hidenum = '0';
+
+
+    $conn = new mysqli('localhost','id18794570_mydb','byU=^D})=1YGb/IG','id18794570_kdb');
+    $result = mysqli_query($conn,"SELECT * FROM user WHERE email = '$email' ");
+	
+	$count = mysqli_num_rows($result);
+	if($count == 0 && strlen($_POST["pw"]) > 8 ){
+	    
+        $stmt = $conn->prepare("INSERT INTO `user`(`firstName`,`lastName`,`middleName`,`email`,`pw`,`addr`,`munici`,`prov`,`number`,`dropdown`,`bill`,`status`,`hideNum`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+        $stmt->bind_param("ssssssssisisi",$firstname,$middleName,$lastName,$email,$pw,$addr,$municipality,$province,$number,$dropdown,$bill,$status,$hidenum);
+        $stmt->execute();
+
+		echo "<script>
+		alert('You Have sucessfully Registered please wait within 24 hours for the admin to contact you! :)');
+		window.location.href='index.php';
+		</script>";
+		
+
+        $stmt-> close();
+        $conn->close();	    
+	
+	}if (strlen($_POST["pw"]) <= 8) {
+	    
+	    echo "<script>
+		alert('Client Password Must Contain At Least 8 Characters!');
+		window.location.href='index.php';
+		</script>";
+		
+	}if($count!=0){
+	    include 'config.php';
+	    
+		echo "<script>
+		alert('The email you have entered already exist!!');
+		window.location.href='index.php';
+		</script>";
+
+	}
+}
+
+?>

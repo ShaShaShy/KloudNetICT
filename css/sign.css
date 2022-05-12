@@ -1,0 +1,48 @@
+body{
+	background: url(../img/iot.jpeg) fixed no-repeat;
+	background-image: contain;
+	background-size: cover;
+	font-family: 'Poppins' , sans-serif;
+}
+
+.intro h1{
+	margin-top: 5%;
+	font-family: 'Poppins',sans-serif;
+	font-weight: bold;
+	text-align: center;
+	color: #ffffff;
+}
+.myform{
+	color: #000000;
+	margin-top: 7%;
+	margin-left: 5%;
+	margin-right: 5%;
+	padding: 2%;
+	height: 650px;
+}
+
+.btn{
+	text-align: center;
+	float: right;
+
+}
+
+.pen label{
+	color: #ffffff;
+}
+
+.design{
+	opacity: 90%;
+	background-color: white;
+	margin-right: 25%;
+	margin-left: 25%;
+	border-radius: 50px;
+}
+
+.label{
+	color: #ffffff;
+}
+
+.none select{
+	margin-left: 300%;
+}
