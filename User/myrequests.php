@@ -10,7 +10,7 @@ if ($logged==false) {
 
                 $id = $_SESSION['uid'];
                 
-                $query = "SELECT * FROM userbills WHERE uid ={$id} ORDER BY id DESC";
+                $query = "SELECT * FROM urequest WHERE uid ={$id}";
                 $query_run = mysqli_query($connection, $query);
 ?>
 
@@ -25,7 +25,7 @@ if ($logged==false) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Billing</title>
+    <title>My Request </title>
 
     
     <!-- Custom fonts for this template-->
@@ -83,7 +83,7 @@ if ($logged==false) {
                     <i class="fas fa-envelope-open"></i>
                     <span>My Complaints</span>
                 </a>
-                
+
                 <a class="nav-link collapsed" href="myrequests"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-envelope-open"></i>
@@ -135,11 +135,8 @@ if ($logged==false) {
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-            <a target="_blank" class="btn btn-primary " href="printing.php"  style=" margin: 5px; float: right;">Print My Bills</a> 
    
-                        
-
-                    </ul>
+                                       </ul>
 
                 </nav>
                 <!-- End of Topbar -->
@@ -149,7 +146,7 @@ if ($logged==false) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800" style="color: black;">My Bills</h1>
+                        <h1 class="h3 mb-0 text-gray-800" style="color: black;">My Requests</h1>
                     </div>
 
                     <!-- Content Row -->
@@ -158,17 +155,12 @@ if ($logged==false) {
   <thead class="thead-dark" style="white-space:nowrap;">
                             <tr>
                         <th>ID</th>
-                        <th >Full Name</th>
-                        <th>Email</th>
-                        <th >Date Issued</th>
-                        <th>Due Date</th>
-                        <th >Monthly Bill</th>
-                        <th >Other Fees</th>
-                        <th>Charges</th>
-                        <th>Total</th>
-                        <th>Payment</th>
-                        <th>Status</th>
-                        <th></th>
+                        <th >Request</th>
+                        <th>Full Name</th>
+                        <th >Number</th>
+                        <th>Address</th>
+                        <th >Date Sent</th>
+                        <th >Status</th>
                             </tr>
   </thead>
   <tbody>
@@ -189,23 +181,12 @@ if ($logged==false) {
                         <tbody style="color:black;">
                             <tr>
                                 <td> <?php echo $row['id']; ?> </td>
+                                <td> <?php echo $row['complaint']; ?> </td>
                                 <td> <?php echo $row['fname']; ?> </td>
-                                <td> <?php echo $row['email']; ?> </td>
-                                <td> <?php echo $row['tdate']; ?> </td>
-                                <td> <?php echo $row['ddate']; ?> </td>
-                                <td> <?php echo $row['bill']; ?> </td>
-                                <td> <?php echo $row['fees']; ?> </td>
-                                <td> <?php echo $row['charges']; ?> </td>
-                                <td> <?php echo $row['total']; ?> </td>
-                                <td> <?php echo $row['pmethod']; ?> </td>
+                                <td> <?php echo $row['pnum']; ?> </td>
+                                <td> <?php echo $row['addr']; ?> </td>
+                                <td> <?php echo $row['descrip']; ?> </td>
                                 <td> <?php echo $row['status']; ?> </td>
-                                <?php
-                                if($row['pmethod']!='GCASH' AND $row['pmethod']!='MANUAL COLLECTION' AND $row['pmethod']!='BANK TRANSFER' ){
-                                echo "<td><button type='button' class='btn btn-success genbtn' > Payment</button></td>";
-                                    }else{
-                                        
-                                    }
-                                ?>
                                 </td>
                             </tr>
                         </tbody>

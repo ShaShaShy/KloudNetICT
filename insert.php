@@ -11,11 +11,11 @@ if(isset($_POST['userreg']))
 	$municipality = $_POST['municipality'];
 	$province = $_POST['province'];
 	$number = $_POST['number'];
-	$dropdown = $_POST['dropdown'];
-	$bill = $_POST['bill'];
 	$status = $_POST['status'];
 	$hidenum = '0';
-
+	$dropdown = $_POST['dropdown'];
+	$bill = $_POST['bill'];
+    $rdate = date("d");
 
     $conn = new mysqli('localhost','id18794570_mydb','byU=^D})=1YGb/IG','id18794570_kdb');
     $result = mysqli_query($conn,"SELECT * FROM user WHERE email = '$email' ");
@@ -23,11 +23,12 @@ if(isset($_POST['userreg']))
 	$count = mysqli_num_rows($result);
 	if($count == 0 && strlen($_POST["pw"]) > 8 ){
 	    
-        $stmt = $conn->prepare("INSERT INTO `user`(`firstName`,`lastName`,`middleName`,`email`,`pw`,`addr`,`munici`,`prov`,`number`,`dropdown`,`bill`,`status`,`hideNum`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        $stmt = $conn->prepare("INSERT INTO `user`(`firstName`,`lastName`,`middleName`,`email`,`pw`,`addr`,`munici`,`prov`,`number`,`status`,`hideNum`,`dropdown`,`bill`,`rdate`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
-        $stmt->bind_param("ssssssssisisi",$firstname,$middleName,$lastName,$email,$pw,$addr,$municipality,$province,$number,$dropdown,$bill,$status,$hidenum);
+        $stmt->bind_param("ssssssssisisis",$firstname,$middleName,$lastName,$email,$pw,$addr,$municipality,$province,$number,$status,$hidenum,$dropdown,$bill,$rdate);
         $stmt->execute();
-
+        
+        echo mysqli_error($conn);
 		echo "<script>
 		alert('You Have sucessfully Registered please wait within 24 hours for the admin to contact you! :)');
 		window.location.href='index.php';

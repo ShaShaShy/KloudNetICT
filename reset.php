@@ -104,7 +104,7 @@
             $mail->Password='@Soncheayoung';
 
             // send by h-hotel email
-            $mail->setFrom('soncheayoung1999@gmail.com', 'Password Reset');
+            $mail->setFrom('KloudnetICT@gmail.com', 'KloudNet Password Reset');
             // get email from input
             $mail->addAddress($_POST["email"]);
             //$mail->addReplyTo('lamkaizhe16@gmail.com');

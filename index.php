@@ -101,13 +101,13 @@ if(isset($_POST['login_submit'])) {
                         <div class="form-group">
                             <label>Email</label>
                             <input type="text" name="email" id="email" class="form-control"
-                                >
+                                placeholder="Enter Email">
                         </div><br>
 
                         <div class="form-group">
                             <label> Password </label>
                             <input type="password" name="pass" id="pass" class="form-control"
-                                >
+                                placeholder="Enter Password">
                         </div>
                             <label ><a href="reset.php">Forgot Password?</a></label> 
                             <label style="float:right;" class="userreg" data-toggle="modal"><a href="#">Register</a></label>
@@ -189,46 +189,46 @@ if(isset($_POST['login_submit'])) {
                         <div class="form-group">
                             <label>First Name</label>
                             <input type="text" name="firstname" class="form-control"
-                                required="required">
+                                required="required" placeholder="First Name">
                         </div><br>
                         
                         <div class="form-group">
                             <label>Last Name</label>
                             <input name="lastName" type="text"  class="form-control"
-                                required="required">
+                                required="required" placeholder="Last Name">
                         </div><br>
                         
                         <div class="form-group">
                             <label>Middle Name</label>
                             <input name="middleName" type="text"  class="form-control"
-                                required="required">
+                                required="required" placeholder="Middle Name">
                         </div><br>
 
                         <div class="form-group">
                             <label>Email</label>
                             <input type="text" name="email" class="form-control"
-                                required="required">
+                                required="required" placeholder="Enter Email">
                         </div><br>
 
                         <div class="form-group">
                             <label>Contact</label>
                             <input type="text" name="number" class="form-control"
-                                required="required" maxlength="11">
+                                required="required" maxlength="11" onkeypress="return onlyNumberKey(event)" placeholder="Enter Contact Number">
                         </div><br>
 
                         <div class="form-group">
                             <label> Password </label>
                             <input type="password" id="password" name="pw" class="form-control"
-                                required="required" >
+                                required="required" placeholder="Input atleast 9 characters">
                         </div><br>
                         
                         <div class="form-group">
                             <label> Confirm Password </label>
                             <input type="password" id="confirm_password" class="form-control"
-                                required="required" >
+                                required="required" placeholder="Input atleast 9 characters">
                         </div><br>
     <label>Barangay</label>
-  <select name="addr" id="address" class="address"  onchange="javascript:selectChangedadd();" style="font-weight:bold;">
+  <select name="addr" id="address" class="address"  onchange="javascript:selectChangedadd();" style="font-weight:bold;" required="required">
     <?php
         $link = mysqli_connect("localhost","id18794570_mydb","byU=^D})=1YGb/IG","id18794570_kdb");
 
@@ -238,7 +238,7 @@ if(isset($_POST['login_submit'])) {
         }
 
         $records = mysqli_query($link, "SELECT * FROM address");
-        echo "<option selected disabled>-Select Address-</option>";
+        echo "<option selected disabled value=''>-Select Address-</option>";
         while($obj = $records->fetch_object())
         {
            echo '<option  data-price1="'.$obj->municipality.'" data-price2="'.$obj->province.'" value="'.$obj->barangay.'">'.$obj->barangay.'</option>';
@@ -247,17 +247,17 @@ if(isset($_POST['login_submit'])) {
     </select><br><br>
     
             <label>Municipality</label>
-            <input name="municipality" id="data-price1"  type="text"  class="form-control" required="required" >
+            <input name="municipality" id="data-price1"  type="text"  class="form-control" required="required" readonly>
             <br>
                         
             
             <label>Province</label>
-            <input name="province" id="data-price2"  type="text"  class="form-control" required="required" >
+            <input name="province" id="data-price2"  type="text"  class="form-control" required="required" readonly>
             <br>
 
     
 
-  <select name="dropdown" id="dropdown" class="product" onchange="javascript:selectChanged();" style="font-weight: bold; font-size: 15px;">
+  <select name="dropdown" id="dropdown" class="product" onchange="javascript:selectChanged();" style="font-weight: bold; font-size: 15px;" required="required">
     <?php
         $link = mysqli_connect("localhost","id18794570_mydb","byU=^D})=1YGb/IG","id18794570_kdb");
 
@@ -267,7 +267,7 @@ if(isset($_POST['login_submit'])) {
         }
 
         $records = mysqli_query($link, "SELECT * FROM plans");
-        echo "<option selected disabled>-Available Plan-</option>";
+        echo "<option selected disabled value=''>-Available Plan-</option>";
         while($obj = $records->fetch_object())
         {
            echo '<option data-price="'.$obj->cost.'" value="'.$obj->planName.'">'.$obj->planName.'</option>';
@@ -279,6 +279,7 @@ if(isset($_POST['login_submit'])) {
 
   <input type="hidden" name="status" value="DISCONNECTED"><br><br>
 
+    
             <div class="tacbox">
         <input id="checkbox" type="checkbox" required="required" />
         <label for="checkbox" > I agree to these <a href="#">Terms and Conditions</a>.</label>
@@ -469,7 +470,7 @@ if(isset($_POST['login_submit'])) {
               <div class="footer-content">
                 <h4 style="font-family:'Poppins',sans-serif;">KEEP IN TOUCH</h4>
                 <div class="footer-socials">
-                  <a target="_blank" href="mail.google.com"><i class="fa fa-google-plus"></i></a>
+                  <a target="_blank" href="https://mail.google.com/mail"><i class="fa fa-google-plus"></i></a>
                   <!--<a href="#"><i class="fa fa-facebook"></i></a>-->
                 </div>
               </div> <!-- end footer-content -->
@@ -618,6 +619,17 @@ function validatePassword(){
 
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;    
+</script>
+
+<script>
+    function onlyNumberKey(evt) {
+          
+        // Only ASCII character in that range allowed
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+            return false;
+        return true;
+    }
 </script>
   </body>
 </html>

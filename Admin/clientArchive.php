@@ -216,7 +216,7 @@ while($row = mysqli_fetch_array($result))
   echo "<td>" . $row['firstName'] . " " . $row['middleName'] . " " . $row['lastName'] . "</td>";
   echo "<td>" . $row['email'] . "</td>";
   echo "<td>" . $row['number'] . "</td>";
-  echo "<td>" . $row['addr'] . "</td>";
+  echo "<td>".$row['addr'].' '.$row['munici'].' '.$row['prov']."</td>";
   echo "<td>" . $row['bill'] . "</td>";
   echo "<td>" . $row['status'] . "</td>";
   echo "<td><a rel='facebox' href='functions/clientRest.php?id=".$row['id']."'><span class=\"btn btn-success btn-xs glyphicon glyphicon-eye-open\">RESTORE</span></td>";
@@ -329,8 +329,7 @@ v>
 
         <script>
         $(document).ready(function () {
-
-            $('.clientdelbtn').on('click', function () {
+            $('body').on('click','.clientdelbtn', function (e) {
 
                 $('#delplanModal').modal('show');
 

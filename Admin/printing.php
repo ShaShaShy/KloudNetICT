@@ -65,7 +65,7 @@
                     mysqli_query($connection,$sql);
             ?>
                                 <p><strong> Bill Reference Number: <?php echo $row['id']; ?> </strong></p>
-                                <p> Name: <?php echo $row['fname']; ?></p>
+                                <p> Name: <?php echo strtoupper($row['fname']); ?></p>
                                 <p> Date: <?php echo $row['tdate']; ?> </p>
                                 <p> Due Date: <?php echo $row['ddate']; ?> </p>
                                 <p> Monthly Bill: <?php echo $row['bill']; ?></p>
@@ -88,8 +88,8 @@
 			</div>
 
 		</div>
-        <br><br><br><br>
-		    <p><?php echo $row['fname']; ?></p>
+        <br>
+		    <p><?php echo strtoupper($row['fname']); ?></p>
 		 <p style="text-decoration-line: overline;">Signature over printed name</p><br><br>
 		 
 		 <p style="text-decoration-line: overline;">Authorized Signature</p>

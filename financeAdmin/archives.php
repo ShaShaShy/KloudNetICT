@@ -178,7 +178,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color: black;">
-                                    <thead>
+                                    <thead class="thead-dark">
                                <tr>  
                                     <th>Bill ID</th>
                                     <th>Full Name</th>  
@@ -268,7 +268,7 @@ while($row = mysqli_fetch_array($result))
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="logout">Logout</a>
                 </div>
             </div>
         </div>

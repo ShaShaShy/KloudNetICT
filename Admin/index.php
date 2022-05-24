@@ -198,7 +198,8 @@
                                     <th>Full Name</th>  
                                     <th>Email</th>  
                                     <th>Contact</th>  
-                                    <th>Barangay/Municipality/Province</th>  
+                                    <th>Barangay/Municipality/Province</th>
+                                    <th>Registration Date</th>  
                                     <th>Plan</th> 
                                      <th>Bill</th> 
                                      <th>Status</th>
@@ -224,6 +225,7 @@
                     <td>'.$order["email"].'</td>
                     <td>'.$order["number"].'</td>
                     <td>'.$order["addr"].' '.$order["munici"].' '.$order["prov"].'</td>
+                    <td>'.$order["rdate"].'</td>
                     <td>'.$order["dropdown"].'</td>
                     <td style="white-space:nowrap;">'.$order["bill"].'</td>
                     <td>'.$order["status"].'</td>
@@ -319,6 +321,7 @@
                         <select name="status" id="status" required="required">
                             <option value="CONNECTED">CONNECTED</option>
                             <option value="DISCONNECTED">DISCONNECTED</option>
+                            <option value="REJECTED">REJECT USER</option>
                         </select>
 
                     
@@ -380,43 +383,43 @@
                         <div class="form-group">
                             <label> First Name </label>
                             <input type="text" name="firstname" class="form-control"
-                                required="required">
+                                required="required" placeholder="Enter First Name">
                         </div><br>
                         
                         <div class="form-group">
                             <label>Last Name</label>
                             <input name="lastName" type="text"  class="form-control"
-                                required="required">
+                                required="required" placeholder="Enter Last Name">
                         </div><br>
                         
                         <div class="form-group">
                             <label>Middle Name</label>
                             <input name="middleName" type="text"  class="form-control"
-                                required="required">
+                                required="required" placeholder="Enter Middle Name">
                         </div><br>
 
                         <div class="form-group">
                             <label>Email</label>
                             <input type="text" name="email" class="form-control"
-                                required="required">
+                                required="required" placeholder="Enter Email">
                         </div><br>
 
                         <div class="form-group">
                             <label> Phone Number </label>
                             <input type="text" name="number" class="form-control" onkeypress="return onlyNumberKey(event)" maxlength="11"
-                                required="required">
+                                required="required" placeholder="Enter Contact Number">
                         </div><br>
 
                         <div class="form-group">
                             <label> Password </label>
                             <input type="password" id="password" name="pw" class="form-control"
-                                required="required" >
+                                required="required" placeholder="Enter Password">
                         </div><br>
                         
                         <div class="form-group">
                             <label> Confirm Password </label>
                             <input type="password" id="confirm_password" class="form-control"
-                                required="required" >
+                                required="required" placeholder="Confirm Password">
                         </div><br>
                         
     <label style="color:black;">Barangay</label>
@@ -430,7 +433,7 @@
         }
 
         $records = mysqli_query($link, "SELECT * FROM address");
-        echo "<option selected disabled>-Select Address-</option>";
+        echo "<option selected disabled value=''>-Select Address-</option>";
         while($obj = $records->fetch_object())
         {
            
@@ -440,12 +443,12 @@
     </select><br><br>
     
             <label>Municipality</label>
-            <input name="municipality" id="data-price1"  type="text"  class="form-control" required="required" >
+            <input name="municipality" id="data-price1"  type="text"  class="form-control" required="required" readonly>
             <br>
                         
             
             <label>Province</label>
-            <input name="province" id="data-price2"  type="text"  class="form-control" required="required" >
+            <input name="province" id="data-price2"  type="text"  class="form-control" required="required" readonly>
             <br>
 
   <select name="drop" id="drop" class="product" onchange="javascript:selectChanged();" style="font-weight:bold; font-size: 15px; " required="required">
@@ -459,7 +462,7 @@
         }
 
         $records = mysqli_query($link, "SELECT * FROM plans");
-        echo "<option selected disabled>-Select Fibr Plan-</option>";
+        echo "<option selected disabled value=''>-Select Fibr Plan-</option>";
         while($obj = $records->fetch_object())
         {
            echo '<option data-price="'.$obj->cost.'" value="'.$obj->planName.'">'.$obj->planName.'</option>';
@@ -568,8 +571,8 @@
                 $('#id').val(data[1]);
                 $('#email').val(data[3]);
                 $('#number').val(data[4]);
-                $('#dropdown').val(data[6]);
-                $('#bill').val(data[7]);
+                $('#dropdown').val(data[7]);
+                $('#bill').val(data[8]);
 
             });
         });

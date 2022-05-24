@@ -155,39 +155,44 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                                <form id="myForm" method="POST" action="functions/GenSelected.php">
+                                <input type="submit" name="Paid" id="Paid" value="GENERATE SELECTED" class="btn btn-primary " style=" margin-right: 5px; float: right; "><br><br>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color: black;">
                                     <thead class="thead-dark">
                                <tr>  
+                                    <th>Select</th>
                                     <th>Bill ID</th>
                                     <th>Full Name</th>  
                                     <th>Email</th>
-                                    <th>Address</th>  
+                                    <th>Address</th>
+                                    <th>Registration Date</th>
                                      <th>Monthly Bill</th> 
                                      <th>Status</th>
                                      <th></th>
 
                                </tr>  
                                     </thead>
+
     <?php
 include 'mycon.php';
 
-$result = mysqli_query($connection,"SELECT * FROM user WHERE hideNum ='0' ");
+$result = mysqli_query($connection,"SELECT * FROM user WHERE hideNum ='0' and status ='CONNECTED' ");
 
 
 while($row = mysqli_fetch_array($result))
   {
                     echo "<tr>";
-
+                    echo "<td><input class='checkbox[]' name='checkbox[]' id='toggle' type='checkbox' value='".$row['id']."' rel='facebox' onchange='valueChanged()'></td>";
                     echo '
                     <td>'.$row["id"].'</td>
                     <td>'.$row["firstName"].' '.$row["lastName"].' '.$row["middleName"].'</td>
                     <td>'.$row["email"].'</td>
                     <td>'.$row["addr"].' '.$row["munici"].' '.$row["prov"].'</td>
+                    <td>'.$row["rdate"].'</td>
                     <td>'.$row["bill"].'</td>
                     <td>'.$row["status"].'</td>
                     <td>
-                    <button type="button" class="btn btn-success genbtn"  data-toggle="modal"
-                data-target="#billmodal"> GENERATE BILL </button>
+                    <button type="button" class="btn btn-success genbtn"  data-toggle="modal" data-target="#billmodal"> GENERATE BILL </button>
                 </td>';
                 echo "</tr>";
   }
@@ -197,6 +202,7 @@ while($row = mysqli_fetch_array($result))
                                       
                                     </tbody>
                                 </table>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -305,7 +311,7 @@ while($row = mysqli_fetch_array($result))
 
                         <div class="form-group">
                             <label>Date Issued</label>
-                            <input value="<?php echo $CurrentDate = date("Y-m-d");?>" readonly="readonly" name="tdate"  class="form-control"
+                            <input value="<?php echo $CurrentDate = date("Y-m-d");?>"  name="tdate"  class="form-control"
                                 >
                         </div>
 
@@ -391,11 +397,11 @@ while($row = mysqli_fetch_array($result))
 
                 console.log(data);
 
-                $('#id').val(data[0]);
-                $('#firstName').val(data[1]);
-                $('#email').val(data[2]);
-                $('#addr').val(data[3]);
-                $('#bill').val(data[4]);
+                $('#id').val(data[1]);
+                $('#firstName').val(data[2]);
+                $('#email').val(data[3]);
+                $('#addr').val(data[4]);
+                $('#bill').val(data[6]);
 
             });
         });
@@ -416,11 +422,11 @@ while($row = mysqli_fetch_array($result))
 
                 console.log(data);
 
-                $('#id').val(data[0]);
-                $('#firstName').val(data[1]);
-                $('#email').val(data[2]);
-                $('#addr').val(data[3]);
-                $('#bill').val(data[4]);
+                $('#id').val(data[1]);
+                $('#firstName').val(data[2]);
+                $('#email').val(data[3]);
+                $('#addr').val(data[4]);
+                $('#bill').val(data[6]);
 
             });
         });
@@ -442,8 +448,8 @@ while($row = mysqli_fetch_array($result))
 
                 console.log(data);
 
-                $('#id').val(data[0]);
-                $('#bill').val(data[1]);
+                $('#id').val(data[1]);
+                $('#bill').val(data[2]);
 
             });
         });
@@ -460,7 +466,20 @@ while($row = mysqli_fetch_array($result))
     }
 </script>
 
+<script>
+function checkBoxCheck(e) {
+  if ($('input[name="checkbox[]"]:checked').length) {
+    console.log("at least one checked");
+    return true;
+  } else {
+    alert("Please select a User first!");
+    return false;
+  }
+}
 
+$('#myForm').on('submit', checkBoxCheck);    
+    
+</script>
 
 </body>
 

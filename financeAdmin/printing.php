@@ -1,79 +1,57 @@
-<?php
-  include 'mycon.php';
-
-  $id = $_GET['id'];
-$result = mysqli_query($connection,"SELECT * FROM USERBILLS WHERE ID = '$id'");
-$test = mysqli_fetch_array($result);
-
-$id=$test['id'] ;
-$fname=$test['fname'] ;
-$email=$test['email'] ;
-$tdate=$test['tdate'] ;
-$ddate=$test['ddate'] ;
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/billing_print.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
-    <link rel="shortcut icon" type="image/jpg" href="images/favi.png"/>
-    <title>KLOUDNET</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/billing_print.css">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link rel="shortcut icon" type="image/jpg" href="images/favi.png"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+	<title>Printing of Bills</title>
 </head>
 
 
-<body>
+<body style="font-family:'Poppins',sans-serif">
 
-    <div class="container">
+	<div class="container">
 
-        <div class="row">
-            <div class="col-md-12">
-                    <img src="img/logo.png">
-                <div class="row">
-                    
-                    <div class="col-md-6" style="font-family: 'Poppins',sans-serif; margin-left: 5%; margin-top: 5%; font-weight: bold;">
-                        <h5 style="margin-bottom:2%">NAME : <?php echo $fname ?></h5>
-                        <h5 style="margin-bottom:2%">EMAIL : <?php echo $email ?></h5>
-                        <h5 style="margin-bottom:2%">DATE ISSUED : <?php echo $tdate ?></h5>
-                        <h5 style="margin-bottom:8%">DUE DATE : <?php echo $ddate ?></h5>
-                        
-                    <h5 style="margin-top:50px;">Client Signature : ............ <br><br><br>Admin Signature : ............ </h5>
-                    </div>
+		<div class="row">
+			<div class="col-md-12">
+					<img src="img/logo.png">
+				<div class="row">
+                    <br><br>
+                    <hr>
+				<p><i class='fas fa-map-marker-alt' style='font-size:20px'></i>  FL Pena, Kabasalan Zamboanga Sibugay</p>
+                <p><i class='fas fa-phone-square' style='font-size:20px'></i>  09269908478</p>
+                <p><i class='fas fa-user-circle' style='font-size:20px'></i>  kloudnetict@gmail.com</p>
+                <p><i class='fas fa-money-check' style='font-size:20px'></i>  Metro bank#: 099-309-937-2029, Gcash #:0926-990-8478</p>
 
-
-                </div>
-                <hr>
-                <?php
-
-                $connection = mysqli_connect("localhost","root","");
-                $db = mysqli_select_db($connection, 'kdb');
-
-                $id = $_GET['id'];
+				</div>
+				<hr>
+				<?php
+                include 'mycon.php';
                 
-                $query = "SELECT * FROM USERBILLS WHERE id='$id'";
+                 $id = $_GET['id'];
+                $result = mysqli_query($connection,"SELECT * FROM userbills WHERE ID = '$id'");
+                $test = mysqli_fetch_array($result);
+                
+                $id=$test['id'] ;
+                $fname=$test['fname'] ;
+                $email=$test['email'] ;
+                $tdate=$test['tdate'] ;
+                $ddate=$test['ddate'] ;
+
+                $connection = mysqli_connect("localhost","id18794570_mydb","byU=^D})=1YGb/IG");
+                $db = mysqli_select_db($connection, 'id18794570_kdb');
+
+             	$id = $_GET['id'];
+                
+                $query = "SELECT * FROM userbills WHERE id='$id'";
                 $query_run = mysqli_query($connection, $query);
             ?>
-                    <table id="datatableid" class="table table-bordered table-light">
-                        <thead>
-                            <tr>
-                                
-                                <th scope="col">First Name</th>
-                                <th scope="col">Date Issued</th>
-                                <th scope="col">Due Date</th>
-                                <th scope="col">Monthly Bill</th>
-                                <th scope="col">Other fees</th>
-                                <th scope="col">Charges</th>
-                                <th scope="col">Total</th>
-                                <th scope="col">Status</th>
 
-
-                            </tr>
-                        </thead>
                         <?php
                 if($query_run)
                 {
@@ -86,23 +64,17 @@ $ddate=$test['ddate'] ;
                     $sql="UPDATE userbills SET total='$total'  WHERE id = $id";
                     mysqli_query($connection,$sql);
             ?>
-                        <tbody>
-                            <tr>
+                                <p><strong> Bill Reference Number: <?php echo $row['id']; ?> </strong></p>
+                                <p> Name: <?php echo strtoupper($row['fname']); ?></p>
+                                <p> Date: <?php echo $row['tdate']; ?> </p>
+                                <p> Due Date: <?php echo $row['ddate']; ?> </p>
+                                <p> Monthly Bill: <?php echo $row['bill']; ?></p>
+                                <p>Charges: <?php echo $row['fees']; ?> <?php echo  $row['charges']; ?>  </p>
+                                <p>Total payment: <?php echo $row['total']; ?></p>
+                                <p>Status: <?php echo $row['status']; ?></p>
+        
+
                                 
-                                <td> <?php echo $row['fname']; ?> </td>
-                                <td> <?php echo $row['tdate']; ?> </td>
-                                <td> <?php echo $row['ddate']; ?> </td>
-                                <td> <?php echo $row['bill']; ?> </td>
-                                <td> <?php echo $row['fees']; ?> </td>
-                                <td> <?php echo $row['charges']; ?> </td>
-                                <td> <?php echo $row['total']; ?> </td>
-                                <td> <?php echo $row['status']; ?> </td>
-
-
-                                </td>
-                            </tr>
-
-                        </tbody>
                         
                         <?php           
                     }
@@ -113,15 +85,22 @@ $ddate=$test['ddate'] ;
                 }
             ?>
 
-            </div>
+			</div>
 
-        </div>
-        
-    </div>
+		</div>
+        <br><br><br><br>
+		    <p ><?php echo strtoupper($row['fname']); ?></p>
+		 <p style="text-decoration-line: overline;">Signature over printed name</p><br><br>
+		 
+		 <p style="text-decoration-line: overline;">Authorized Signature</p>
 
-    <script>
-  window.print();
-</script>
+	</div>
+
+
 
 </body>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script>
+    window.print();
+</script>
 </html>

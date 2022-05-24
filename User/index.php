@@ -22,6 +22,29 @@ $ddate=$test['ddate'] ;
 }
 
 
+
+        $newresult = mysqli_query($connection,"SELECT * FROM userbills ORDER BY ID DESC");
+        while($row = mysqli_fetch_array($newresult))
+            {
+        $total= $row['bill'] + $row['charges']; 
+        $id = $row['id'];
+
+        $sql="UPDATE userbills SET total='$total'  WHERE id = $id";
+        mysqli_query($connection,$sql);
+
+
+        $total= $row['bill'] - $row['charges']; 
+        $id = $row['id'];
+        
+        $sql2="UPDATE userbills SET total='$total'  WHERE id = $id and fees = 'REBATES'";
+        mysqli_query($connection,$sql2);
+            }
+            
+            
+
+
+
+            
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,6 +115,12 @@ $ddate=$test['ddate'] ;
                     <i class="fas fa-envelope-open"></i>
                     <span>My Complaints</span>
                 </a>
+                
+                <a class="nav-link collapsed" href="myrequests"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-envelope-open"></i>
+                    <span>My Request</span>
+                </a>
 
                 <a class="nav-link collapsed" data-toggle="modal" href="#" data-target="#logoutModal" 
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -126,7 +155,7 @@ $ddate=$test['ddate'] ;
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" >
-
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm userbtn" data-target="#useraddmodal">Request Plan Upgrade/Disconnection</a>
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
@@ -137,9 +166,9 @@ $ddate=$test['ddate'] ;
                     <ul class="navbar-nav ml-auto" style="color:black;">
                                             <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="modal" data-target="#myModal" aria-expanded="false" style="color:black;">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" >						
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="modal" data-target="#myModal" aria-expanded="false" style="color:gray; font-size:20px; font-weight:bold;">
                                 <?php 
+
 						if($test != null){
 						    echo strtoupper($fname);
 						}else{
@@ -147,8 +176,7 @@ $ddate=$test['ddate'] ;
 						}
 						
 						?></span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg" >
+
                             </a>
                         </li>
     
@@ -165,7 +193,8 @@ $ddate=$test['ddate'] ;
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800" style="color: black;">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm userbtn" data-target="#useraddmodal">Request Plan Upgrade/Disconnection</a>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm formbtn" data-target="#appformmodal">Fibr Plan Subscription Requirements</a>
+
                     </div>
 
 
@@ -179,8 +208,8 @@ $ddate=$test['ddate'] ;
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Current Fibr Plan</div>
+                                            <a href="index" style="text-decoration:none;"><div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                 Current Fibr Plan</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 
 <?php
@@ -189,15 +218,16 @@ $connection = new mysqli('localhost', 'id18794570_mydb', 'byU=^D})=1YGb/IG', 'id
 
 $id = $_SESSION['uid'];
 $result = mysqli_query($connection,"SELECT * FROM user WHERE ID = '$id'");
-$test = mysqli_fetch_array($result);
+$mytest = mysqli_fetch_array($result);
 
 
-$plan=$test['dropdown'];
+$plan=$mytest['dropdown'];
+$status = $mytest['status'];
 echo $plan
 
 ?>
 
-                                            </div>
+                                            </div></a>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -212,7 +242,7 @@ echo $plan
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <a href="customerdash" style="text-decoration:none;"><div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Paid Bills</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
 <?php
@@ -225,7 +255,7 @@ $query = $con->query($sql);
                 echo "$query->num_rows";
 
 ?> 
-                                            </div>
+                                            </div></a>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -240,7 +270,7 @@ $query = $con->query($sql);
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                            <a href="customerdash" style="text-decoration:none;"><div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                                 Unpaid Bills</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
 
@@ -255,7 +285,7 @@ $query = $con->query($sql);
 
 ?> 
 
-                                            </div>
+                                            </div></a>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -272,7 +302,7 @@ $query = $con->query($sql);
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <a href="mycomplaints" style="text-decoration:none;"><div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Processed Complaints</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
 
@@ -287,7 +317,7 @@ $query = $con->query($sql);
 
 ?> 
 
-                                            </div>
+                                            </div></a>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -302,7 +332,7 @@ $query = $con->query($sql);
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                            <a href="mycomplaints" style="text-decoration:none;"><div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                                 Unprocessed Complaints</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
 
@@ -317,7 +347,7 @@ $query = $con->query($sql);
 
 ?> 
 
-                                            </div>
+                                            </div></a>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -325,8 +355,13 @@ $query = $con->query($sql);
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+                        
+
+
                     </div>
+
 
     </div>
     <!-- End of Page Wrapper -->
@@ -355,49 +390,60 @@ $query = $con->query($sql);
             </div>
         </div>
     </div>
+    
+    
 <!--Plan Upgrade Modal-->
 <div class="modal fade" id="useraddmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Plan Configuration Request</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Requests For Boost/Disconnection</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
 
-                <form action="functions/insertreq.php" method="POST">
+                <form action="functions/insertreq.php" method="POST" >
                     <div class="modal-body">
 
-                            <select name = "planreq" style="padding: 1%; padding-right: 50%;">
-                            <option value = "Plan Upgrade">Request Plan Upgrade</option>
-                            <option value = "Disconnection">Request Disconnection</option>
+                        
+                        <div class="form-group">
+                            <input type="hidden" name="uid" value="<?php echo $id;?>" readonly="readonly"  class="form-control"
+                                >
+                        </div>
+
+                            <select name = "complaint" id="drop" style="padding: 1%; padding-right: 40%;" required = "required">
+                            <option value = "Request for Plan Boost" selected>Request for Plan Boost</option>
+                            <option value = "Request for Reconnection">Request for Reconnection</option>
+                            <option value = "Request for Disconnection">Request for Disconnection</option>
                             </select><br><br>
+                            
+                            <input type="hidden" name="descrip" id="descrip" value="<?php echo $CurrentDate = date("Y-m-d");?>">
 
                         <div class="form-group">
                             <label>Full Name</label>
-                            <input type="text" name="firstName" id="fname" class="form-control"
-                                required = "required">
+                            <input type="text" name="fname" id="fname" class="form-control"
+                                required = "required" placeholder="Enter Full Name">
                         </div><br>
 
                         <div class="form-group">
                             <label> Phone Number </label>
-                            <input type="text" name="ucon" id="number" class="form-control"
-                                required = "required">
+                            <input type="text" name="pnum" id="number" class="form-control"
+                                maxlength="11" required = "required" placeholder="Enter Contact Number"> 
                         </div><br>
 
                         <div class="form-group">
                             <label> Address </label>
-                            <input type="text" name="addr" id="number" class="form-control"
-                                required = "required">
+                            <input type="text" name="addr" id="addr" class="form-control"
+                                required = "required" placeholder="Enter Adress">
                         </div><br>
+                    </div>
 
                     <input type="hidden" name="status" value="Pending">
-                    <input type="hidden" name="tdate" value="<?php echo $CurrentDate = date("F d Y");?>">
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="insertdata" class="btn btn-primary">Send Request</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="insertcomplaint" class="btn btn-primary">Send Request</button>
                     </div>
 
                 </form>
@@ -405,10 +451,50 @@ $query = $con->query($sql);
             </div>
         </div>
     </div>
+</div>
 
 
+<!--Plan Upgrade Modal-->
+<div class="modal fade" id="appformmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Fibr Plan Subscription Requirements</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+
+                <form>
+                    <div class="modal-body">
+
+                    <p class="lead"><strong>
+                    <strong>&nbsp;&nbsp;&nbsp;&nbsp;Only for New Users.</strong><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Please send the following:
+                    <br>
+                <ul>
+                  <li>Any Valid Government ID for Verfication</li>
+                  <li>Area sketch of your current Location</li>
+                </ul>
+                    </strong></p><br><br>
+
+
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a target="_blank" href="https://mail.google.com/mail/u/kloudnetict@gmail.com/?view=cm&to=kloudnetict@gmail.com&su=Kloudnet Requirements&body=Attach Government ID and Area Sketch" name="submit" value="Submit" class="btn btn-primary">Click here to Proceed</a>
+                    </div>
+                    
+                </form>
+
+            </div>
+        </div>
     </div>
-    <!-- prof modal-->
+</div>
+
+
+    <!-- profile modal-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" style="color:black;">
         <div class="modal-dialog" role="document">
@@ -506,6 +592,27 @@ $query = $con->query($sql);
         <script>
         $(document).ready(function () {
 
+            $('.formbtn').on('click', function () {
+
+                $('#appformmodal').modal('show');
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#id').val(data[0]);
+
+            });
+        });
+    </script>
+    
+        <script>
+        $(document).ready(function () {
+
             $('.userbtns').on('click', function () {
 
                 $('#myModal').modal('show');
@@ -524,7 +631,14 @@ $query = $con->query($sql);
         });
     </script>
  
-
+<script type="text/javascript">
+    function selectChanged () 
+{ 
+var obj = document.getElementById("dropdown");
+var courseTitle = document.getElementById("data-price");
+courseTitle.value = obj.options[obj.selectedIndex].getAttribute('data-price', 2);
+}
+</script>
 </body>
 
 </html>

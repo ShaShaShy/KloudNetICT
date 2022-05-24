@@ -14,9 +14,28 @@ $row = mysqli_fetch_array($result);
     if(strtotime((new DateTime())->format("Y-m-d")) > strtotime($row['ddate']) ){
     $newquery = "UPDATE userbills SET status = 'PENDING' WHERE hideNum = '0' AND status ='UNPAID'";
     $run2 = mysqli_query($connection,$newquery);
+    
+    $newresult = "UPDATE user SET status = 'DISCONNECTED' ";
+    $run3 = mysqli_query($connection,$newresult);
                     
 }
 
+        $newresult = mysqli_query($connection,"SELECT * FROM userbills ORDER BY ID DESC");
+        while($row = mysqli_fetch_array($newresult))
+            {
+        $total= $row['bill'] + $row['charges']; 
+        $id = $row['id'];
+
+        $sql="UPDATE userbills SET total='$total'  WHERE id = $id";
+        mysqli_query($connection,$sql);
+
+
+        $total= $row['bill'] - $row['charges']; 
+        $id = $row['id'];
+        
+        $sql2="UPDATE userbills SET total='$total'  WHERE id = $id and fees = 'REBATES'";
+        mysqli_query($connection,$sql2);
+            }
 ?>
 
 <!DOCTYPE html>
@@ -243,9 +262,9 @@ echo "<table class=\"table\" bgcolor=\"#ffffff\" >
 
 </thead>
 </tr>";
+
 while($row = mysqli_fetch_array($result))
   {
-
 
 $total= $row['bill'] + $row['charges']; 
 $id = $row['id'];

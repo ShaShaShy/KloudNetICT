@@ -21,6 +21,9 @@ $db = mysqli_select_db($connection, 'id18794570_kdb');
         alert('User Data has been Updated!');
         window.location.href='../index.php';
         </script>";
+        }if($query_run && $status == 'REJECTED'){
+        $query = "UPDATE user SET dropdown='REJECTED' WHERE id='$id'";
+        $query_run = mysqli_query($connection, $query);
         }
         else
         {

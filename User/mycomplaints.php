@@ -84,6 +84,12 @@ if ($logged==false) {
                     <i class="fas fa-envelope-open"></i>
                     <span>My Complaints</span>
                 </a>
+                
+                <a class="nav-link collapsed" href="myrequests"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-envelope-open"></i>
+                    <span>My Request</span>
+                </a>
 
                 <a class="nav-link collapsed" data-toggle="modal" href="#" data-target="#logoutModal" 
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -152,8 +158,6 @@ if ($logged==false) {
                     <!-- Content Row -->
                     <div class="row">
 
-
-
     <table class="table" >
         <thead class="thead-dark" style="white-space:nowrap;">
                             <tr>
@@ -169,8 +173,16 @@ if ($logged==false) {
                             </tr>
   </thead>
   <tbody >
+                        
+
+
   <?php
-                if($query_run)
+                $count = mysqli_num_rows($query_run);
+                if($count == 0)
+                {
+                     
+                }
+                else 
                 {
                     foreach($query_run as $row)
                     {
@@ -189,10 +201,7 @@ if ($logged==false) {
                         </tbody>
                         <?php           
                     }
-                }
-                else 
-                {
-                    echo "No Record Found";
+                    
                 }
             ?>
   </tbody>
@@ -217,7 +226,7 @@ if ($logged==false) {
                         <div class="form-group">
                             <input type="hidden" name="uid" value="<?php echo $id;?>" readonly="readonly"  class="form-control"
                                 >
-                        </div><br>
+                        </div>
 
                             <select name = "complaint" id="drop" style="padding: 1%; padding-right: 40%;" required = "required">
                             <option value = "Slow Internet Connection" selected>Slow Internet Connection</option>
@@ -229,25 +238,25 @@ if ($logged==false) {
                         <div class="form-group">
                             <label>Full Name</label>
                             <input type="text" name="fname" id="fname" class="form-control"
-                                required = "required">
+                                required = "required" placeholder="Enter Full Name">
                         </div><br>
 
                         <div class="form-group">
                             <label>Description</label>
                             <textarea type="text" name="descrip" id="descrip" class="form-control"
-                                required = "required"></textarea>
+                                required = "required" placeholder="Enter Description"></textarea>
                         </div><br>
 
                         <div class="form-group">
                             <label> Phone Number </label>
                             <input type="text" name="pnum" id="number" class="form-control"
-                                maxlength="11" required = "required">
+                                maxlength="11" required = "required" placeholder="Enter Contact Number"> 
                         </div><br>
 
                         <div class="form-group">
                             <label> Address </label>
                             <input type="text" name="addr" id="addr" class="form-control"
-                                required = "required">
+                                required = "required" placeholder="Enter Adress">
                         </div><br>
                     </div>
 

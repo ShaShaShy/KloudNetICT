@@ -186,24 +186,25 @@
                                     <th>Date Received</th> 
                                      <th>Status</th> 
                                      <th></th>
+                                     <th></th>
 
                                </tr>  
                                     </thead>
     <?php
 include 'mycon.php';
 
-$result = mysqli_query($connection,"SELECT * FROM planrequest ORDER BY ID DESC");
+$result = mysqli_query($connection,"SELECT * FROM urequest ORDER BY ID DESC");
 
 while($row = mysqli_fetch_array($result))
   {
 
   echo "<tr>";
   echo "<td>" . $row['id'] . "</td>";
-  echo "<td>" . $row['planreq'] . "</td>";
-  echo "<td>" . $row['firstName'] . "</td>";
-  echo "<td>" . $row['ucon'] . "</td>";
+  echo "<td>" . $row['complaint'] . "</td>";
+  echo "<td>" . $row['fname'] . "</td>";
+  echo "<td>" . $row['pnum'] . "</td>";
   echo "<td>" . $row['addr'] . "</td>";
-  echo "<td>" . $row['tdate'] . "</td>";
+  echo "<td>" . $row['descrip'] . "</td>";
   echo "<td>" . $row['status'] . "</td>";
   if($row['status']!="PROCESSED"){
   echo "<td><a rel='facebox' href='functions/processreq.php?id=".$row['id']."'><span class=\"btn btn-success  btn-xs glyphicon glyphicon-eye-open\">PROCESS</span></td>";

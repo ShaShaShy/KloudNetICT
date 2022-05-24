@@ -187,7 +187,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <a href="billing" style="text-decoration:none;"><div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Total Number of Users</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
 <?php
@@ -200,7 +200,7 @@
     echo '<h3>'.$row.'</h3>';
 
     ?></div>
-                                        </div>
+                                        </div></a>
                                         <div class="col-auto">
                                             <i class="fas fa-emoji-sign fa-2x text-gray-300"></i>
                                         </div>
@@ -214,7 +214,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <a href="archives" style="text-decoration:none;"><div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Total Earnings</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 
@@ -231,7 +231,7 @@
     }
 
     ?>
-                                            </div>
+                                            </div></a>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -248,7 +248,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <a href="archives" style="text-decoration:none;"><div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Paid Bills</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
 
@@ -260,7 +260,7 @@ $sql = "SELECT * FROM userbills WHERE status ='PAID'";
                 echo "$query->num_rows";
 
 ?>
-                                            </div>
+                                            </div></a>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -277,7 +277,7 @@ $sql = "SELECT * FROM userbills WHERE status ='PAID'";
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                            <a href="Reports" style="text-decoration:none;"><div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                                 Unpaid Bills</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
 
@@ -289,7 +289,7 @@ $sql = "SELECT * FROM userbills WHERE status ='UNPAID'";
                 echo "$query->num_rows";
 
 ?>
-                                            </div>
+                                            </div></a>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -299,10 +299,7 @@ $sql = "SELECT * FROM userbills WHERE status ='UNPAID'";
                             </div>
                         </div>
 
-        <div style="width:60%;hieght:20%; margin-left:20%;">
-            <h2 class="page-header" style="text-align:center; color:black;">Analytics Reports </h2>
-            <canvas  id="chartjs_bar" style="color:black;"></canvas> 
-        </div>  
+
 
 
     </div>
@@ -358,41 +355,7 @@ $sql = "SELECT * FROM userbills WHERE status ='UNPAID'";
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
-<script>
-      var ctx = document.getElementById("chartjs_bar").getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels:<?php echo json_encode($status); ?>,
-                        datasets: [{
-                            backgroundColor: [
-                               "#5969ff",
-                                "#ff407b",
-                                "#25d5f2",
-                                "#ffc750",
-                                "#2ec551",
-                                "#7040fa",
-                                "#ff004e"
-                            ],
-                            data:<?php echo json_encode($total); ?>,
-                        }]
-                    },
-                    options: {
-                           legend: {
-                        display: true,
-                        position: 'bottom',
- 
-                        labels: {
-                            fontColor: '#71748d',
-                            fontFamily: 'Circular Std Book',
-                            fontSize: 14,
-                        }
-                    },
- 
- 
-                }
-                });
-</script>
+
 
 
 </body>

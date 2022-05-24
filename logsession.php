@@ -25,7 +25,7 @@
             //user LOG-IN checking
             $sql = "SELECT * FROM user WHERE email='$email' AND pw='$password' ";
 
-            $result = mysqli_query($con,$sql);
+            $result = mysqli_query($connection,$sql);
             $count = mysqli_num_rows($result);
             
             if ($count == 1) {
@@ -40,7 +40,7 @@
             //admin LOG-IN checking
             $sql = "SELECT * FROM admin WHERE email='$email' AND pass='$password' ";
 
-            $result = mysqli_query($con,$sql);
+            $result = mysqli_query($connection,$sql);
             $count = mysqli_num_rows($result);
 
             if ($count == 1) {
@@ -55,7 +55,7 @@
             // Finance Administrator Checking.
             $sql = "SELECT * FROM financeadmin WHERE email='$email' AND pass='$password' ";
 
-            $result = mysqli_query($con,$sql);
+            $result = mysqli_query($connection,$sql);
             $count = mysqli_num_rows($result);
 
             if ($count == 1) {

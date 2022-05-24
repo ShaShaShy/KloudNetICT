@@ -137,9 +137,12 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                                <form id="myForm" method="POST" action="functions/GenSelected.php">
+                                <input type="submit" name="Paid" id="Paid" value="GENERATE SELECTED" class="btn btn-primary " style=" margin-right: 5px; float: right; "><br><br>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color: black;">
                                     <thead class="thead-dark">
                                <tr>  
+                                    <th>Select</th>
                                     <th>Bill ID</th>
                                     <th>Full Name</th>  
                                     <th>Email</th>
@@ -150,16 +153,17 @@
 
                                </tr>  
                                     </thead>
+
     <?php
 include 'mycon.php';
 
-$result = mysqli_query($connection,"SELECT * FROM user WHERE hideNum ='0' ");
+$result = mysqli_query($connection,"SELECT * FROM user WHERE hideNum ='0' and status ='CONNECTED' ");
 
 
 while($row = mysqli_fetch_array($result))
   {
                     echo "<tr>";
-
+                    echo "<td><input class='checkbox[]' name='checkbox[]' id='toggle' type='checkbox' value='".$row['id']."' rel='facebox' onchange='valueChanged()'></td>";
                     echo '
                     <td>'.$row["id"].'</td>
                     <td>'.$row["firstName"].' '.$row["lastName"].' '.$row["middleName"].'</td>
@@ -168,8 +172,7 @@ while($row = mysqli_fetch_array($result))
                     <td>'.$row["bill"].'</td>
                     <td>'.$row["status"].'</td>
                     <td>
-                    <button type="button" class="btn btn-success genbtn"  data-toggle="modal"
-                data-target="#billmodal"> GENERATE BILL </button>
+                    <button type="button" class="btn btn-success genbtn"  data-toggle="modal" data-target="#billmodal"> GENERATE BILL </button>
                 </td>';
                 echo "</tr>";
   }
@@ -179,12 +182,12 @@ while($row = mysqli_fetch_array($result))
                                       
                                     </tbody>
                                 </table>
+                                </form>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
@@ -244,7 +247,7 @@ while($row = mysqli_fetch_array($result))
                 <h5 class="modal-body">Bill for this month will be generated for all users!</h5>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="functions/GenAllPayment.php">Confirm</a>
+                    <a class="btn btn-primary" href="functions/genAllPayment.php">Confirm</a>
                 </div>
             </div>
         </div>
@@ -373,11 +376,11 @@ while($row = mysqli_fetch_array($result))
 
                 console.log(data);
 
-                $('#id').val(data[0]);
-                $('#firstName').val(data[1]);
-                $('#email').val(data[2]);
-                $('#addr').val(data[3]);
-                $('#bill').val(data[4]);
+                $('#id').val(data[1]);
+                $('#firstName').val(data[2]);
+                $('#email').val(data[3]);
+                $('#addr').val(data[4]);
+                $('#bill').val(data[5]);
 
             });
         });
@@ -398,11 +401,11 @@ while($row = mysqli_fetch_array($result))
 
                 console.log(data);
 
-                $('#id').val(data[0]);
-                $('#firstName').val(data[1]);
-                $('#email').val(data[2]);
-                $('#addr').val(data[3]);
-                $('#bill').val(data[4]);
+                $('#id').val(data[1]);
+                $('#firstName').val(data[2]);
+                $('#email').val(data[3]);
+                $('#addr').val(data[4]);
+                $('#bill').val(data[5]);
 
             });
         });

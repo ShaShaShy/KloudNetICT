@@ -10,7 +10,7 @@
     {
         echo "<script>
         alert('Data has been restored!');
-        window.location.href='../archive.php';
+        window.location.href='../archives.php';
         </script>";
     }
     else

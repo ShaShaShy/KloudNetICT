@@ -15,7 +15,7 @@ if(isset($_POST['insertdata']))
 	$bill = $_POST['bill'];
 	$status = $_POST['status'];
 	$hidenum = $_POST['hidenum'];
-
+    $rdate = date("d");
 
     $conn = new mysqli('localhost','id18794570_mydb','byU=^D})=1YGb/IG','id18794570_kdb');
     $result = mysqli_query($conn,"SELECT * FROM user WHERE email = '$email' ");
@@ -23,9 +23,9 @@ if(isset($_POST['insertdata']))
 	$count = mysqli_num_rows($result);
 	if($count == 0 && strlen($_POST["pw"]) > 8 ){
 	    
-        $stmt = $conn->prepare("INSERT INTO `user`(`firstName`,`lastName`,`middleName`,`email`,`pw`,`addr`,`munici`,`prov`,`number`,`dropdown`,`bill`,`status`,`hideNum`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        $stmt = $conn->prepare("INSERT INTO `user`(`firstName`,`lastName`,`middleName`,`email`,`pw`,`addr`,`munici`,`prov`,`number`,`dropdown`,`bill`,`status`,`hideNum`,`rdate`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
-        $stmt->bind_param("ssssssssisisi",$firstname,$middleName,$lastName,$email,$pw,$addr,$municipality,$province,$number,$dropdown,$bill,$status,$hidenum);
+        $stmt->bind_param("ssssssssisisis",$firstname,$middleName,$lastName,$email,$pw,$addr,$municipality,$province,$number,$dropdown,$bill,$status,$hidenum,$rdate);
         $stmt->execute();
 
 		echo "<script>

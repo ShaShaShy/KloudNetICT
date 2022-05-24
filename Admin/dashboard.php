@@ -166,7 +166,7 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-            <button class="btn btn-dark " data-toggle="modal" data-target="#adminModal"  style=" margin: 5px; float: right;"><i class="fas fas fa-users" style="font-size:20px"></i>&nbsp;&nbsp;Create Admin Account</button>  
+            <button class="btn btn-primary " data-toggle="modal" data-target="#adminModal"  style=" margin: 5px; float: right;"><i class="fas fas fa-users" style="font-size:20px"></i>&nbsp;&nbsp;Create Admin Account</button>  
             <a class="btn btn-primary genallbtn" href="#"  style=" margin: 5px; float: right;"><i class="fas fa-money-check" style="font-size:20px"></i>&nbsp;&nbsp;Customer Inquiries</a>  
 
                     </ul>
@@ -372,7 +372,7 @@ $sql = "SELECT * FROM complaints WHERE status ='Pending'";
 <?php
 
 
-$sql = "SELECT * FROM planrequest WHERE status ='Pending'";
+$sql = "SELECT * FROM urequest WHERE status ='Pending'";
                 $query = $con->query($sql);
 
                 echo "$query->num_rows";
@@ -430,7 +430,7 @@ $sql = "SELECT * FROM planrequest WHERE status ='Pending'";
     <!--Generate bill for all users-->
     <div class="modal fade" id="billallmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-xl" role="document" style="margin-top:3%;">
             <div class="modal-content">
 
                    <!-- DataTales Example -->
@@ -443,11 +443,11 @@ $sql = "SELECT * FROM planrequest WHERE status ='Pending'";
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color: black;">
                                     <thead>
                                <tr>  
-
                                     <th>Full Name</th>
                                     <th>Email</th>    
                                     <th>Message</th>  
                                     <th></th> 
+                                    <th></th>
                                </tr>  
                                     </thead>
     <?php
@@ -456,18 +456,20 @@ include 'mycon.php';
 $result = mysqli_query($connection,"SELECT * FROM contactus ");
 
 
+
+  
 while($row = mysqli_fetch_array($result))
   {
-  echo "<tr>";
 
+  echo "<tr>";
   echo "<td style='white-space:nowrap;'>" . $row['fullName'] . "</td>";
   echo "<td>" . $row['email'] . "</td>";
   echo "<td>" . $row['msg'] . "</td>";
-  echo "<td>
-                    <a target = '_blank'; href='https://mail.google.com/'; class='btn btn-dark deletebtn'> Reply </a>
-                </td>";
+  echo "<td><a target = '_blank'; href='https://mail.google.com/'; class='btn btn-dark deletebtn'> Reply </a></td>";
+  echo "<td><a rel='facebox' class=\"btn btn-danger\" href='functions/inquirydel.php?id=".$row['id']."'><span class=\"  btn-xs glyphicon glyphicon-eye-open\">DELETE</span></td>";
   echo "</tr>";
-  }
+  };
+echo "</table>";
 
 
 ?>
@@ -487,7 +489,34 @@ while($row = mysqli_fetch_array($result))
         </div>
     </div>
     
-    
+       <!-- <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Delete Client Data </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+
+                <form action="functions/inquirydel.php" method="POST">
+
+                    <div class="modal-body">
+
+                        <input type="hidden" name="delete_id" id="delete_id">
+
+                        <h5>Are you sure you want to delete this data?</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
+                        <button type="submit" name="deletedata" class="btn btn-primary"> YES</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>-->
+
 <div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -504,17 +533,17 @@ while($row = mysqli_fetch_array($result))
 
                         <div class="form-group">
                             <label>Admin Email</label>
-                            <input type="text" name="email" id="email" class="form-control" required="required">
+                            <input type="text" name="email" id="email" class="form-control" required="required" placeholder="Enter Email">
                         </div><br>
 
                         <div class="form-group">
                             <label> Password </label>
-                            <input type="text" name="pass" id="password" onkeypress="return onlyNumberKey(event)" class="form-control" required="required">
+                            <input type="text" name="pass" id="password" onkeypress="return onlyNumberKey(event)" class="form-control" required="required" placeholder="Enter atleast 9 characters">
                         </div><br>
                         
                         <div class="form-group">
                             <label> Confirm Password </label>
-                            <input type="text" name="number" id="confirm_password" onkeypress="return onlyNumberKey(event)" class="form-control" required="required">
+                            <input type="text" name="number" id="confirm_password" onkeypress="return onlyNumberKey(event)" class="form-control" required="required" placeholder="Confirm Password">
                         </div><br>
                     
                     </div>
@@ -593,6 +622,28 @@ confirm_password.onkeyup = validatePassword;
 </script>
 
 
+        <!--<script>
+        $(document).ready(function () {
+
+            $('body').on('click','.deletebtn', function (e) {
+
+                $('#deletemodal').modal('show');
+
+                $tr = $(this).closest('td');
+
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#delete_id').val(data[0]);
+
+            });
+        });
+    </script>-->
+
 </body>
+
 
 </html>

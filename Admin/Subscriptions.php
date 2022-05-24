@@ -327,17 +327,17 @@
                        
                         <div class="form-group">
                             <label > Plan Name </label>
-                            <input name="planName" id="planName"  class="form-control" required="required">
+                            <input name="planName" id="planName"  class="form-control" required="required" placeholder="Enter Plan Name">
                         </div><br>
 
                         <div class="form-group">
                             <label > Cost </label>
-                            <input name="cost" id="cost" class="form-control" onkeypress="return onlyNumberKey(event)" required="required" >
+                            <input name="cost" id="cost" class="form-control" onkeypress="return onlyNumberKey(event)" required="required" placeholder="Enter ISP Cost">
                         </div><br>
 
                         <div class="form-group">
                             <label > Description </label>
-                            <input name="descrip" id="descrip"  class="form-control" required="required">
+                            <input name="descrip" id="descrip"  class="form-control" required="required" placeholder="Enter Description">
                         </div><br>
 
                     <div class="modal-footer">

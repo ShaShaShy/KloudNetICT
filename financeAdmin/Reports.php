@@ -11,6 +11,24 @@ $row = mysqli_fetch_array($result);
                     
 }
 
+
+        $newresult = mysqli_query($connection,"SELECT * FROM userbills ORDER BY ID DESC");
+        while($row = mysqli_fetch_array($newresult))
+            {
+        $total= $row['bill'] + $row['charges']; 
+        $id = $row['id'];
+
+        $sql="UPDATE userbills SET total='$total'  WHERE id = $id";
+        mysqli_query($connection,$sql);
+
+
+        $total= $row['bill'] - $row['charges']; 
+        $id = $row['id'];
+        
+        $sql2="UPDATE userbills SET total='$total'  WHERE id = $id and fees = 'REBATES'";
+        mysqli_query($connection,$sql2);
+            }
+
 ?>
 
 <!DOCTYPE html>
@@ -139,13 +157,12 @@ $row = mysqli_fetch_array($result);
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+            <button class="btn btn-primary " data-target="#processModal" data-toggle="modal"   style=" margin: 5px; float: right;"><i class="fas fa-clipboard-check" style="font-size:20px"></i>&nbsp;&nbsp;Process All Payment</button> 
 
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
+            <button class="btn btn-dark " data-target="#archiveModal" data-toggle="modal"  style=" margin: 5px; float: right;" ><i class="fas fa-archive" style="font-size:20px"></i>&nbsp;&nbsp;Archive All Paid Records</button>
+
+            <a class="btn btn-dark " href="archives.php"  style=" margin: 5px; float: right;"><i class="fas fa-clipboard-list" style="font-size:20px"></i>&nbsp;&nbsp;View Archive List</a> 
+
  
                         
                     </ul>
@@ -155,11 +172,7 @@ $row = mysqli_fetch_array($result);
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-            <a class="btn btn-primary " href="functions/all.php"  style=" margin: 5px; float: right;"><i class="fas fa-clipboard-check" style="font-size:20px"></i>&nbsp;&nbsp;Process All Payment</a> 
 
-            <a class="btn btn-dark " href="functions/archiveAll.php"  style=" margin: 5px; float: right;"><i class="fas fa-archive" style="font-size:20px"></i>&nbsp;&nbsp;Archive All Paid Records</a>
-
-            <a class="btn btn-dark " href="archives.php"  style=" margin: 5px; float: right;"><i class="fas fa-clipboard-list" style="font-size:20px"></i>&nbsp;&nbsp;View Archive List</a> 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800" style="color: black;">Monthly Payment Reports</h1>
@@ -285,6 +298,44 @@ echo "</table>";
         <i class="fas fa-angle-up"></i>
     </a>
 
+
+    <div class="modal fade" id="archiveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Archive Data</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="color:black; font-size:20px;">Are you sure you want to Archive all paid data?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger" href="functions/archiveAll.php">YES</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="processModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Payment Processing</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="color:black; font-size:20px;">Are you sure you want to Prcoess all payment?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger" href="functions/all.php">YES</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
