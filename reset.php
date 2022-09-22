@@ -100,8 +100,8 @@
             $mail->SMTPSecure='tls';
 
             // h-hotel account
-            $mail->Username='soncheayoung1999@gmail.com';
-            $mail->Password='@Soncheayoung';
+            $mail->Username='';
+            $mail->Password='';
 
             // send by h-hotel email
             $mail->setFrom('KloudnetICT@gmail.com', 'KloudNet Password Reset');
